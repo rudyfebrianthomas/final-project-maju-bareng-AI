@@ -1,0 +1,29 @@
+{
+  "name": "final-project-maju-bareng-ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "dev": "nodemon --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rudyfebrianthomas/final-project-maju-bareng-AI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rudyfebrianthomas/final-project-maju-bareng-AI/issues"
+  },
+  "homepage": "https://github.com/rudyfebrianthomas/final-project-maju-bareng-AI#readme",
+  "dependencies": {
+    "@google/genai": "^2.28.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "multer": "^2.4.0"
+  }
+}

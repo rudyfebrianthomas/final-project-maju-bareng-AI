@@ -1,0 +1,314 @@
+/* Reset dan Pengaturan Dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Kotak Utama Chat */
+.chat-container {
+  width: 100%;
+  max-width: 760px;
+  height: 92vh;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.chat-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-info h2 {
+  font-size: 1.15rem;
+}
+
+.header-info p {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.clear-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.clear-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Area Chat (Tempat Percakapan) */
+.chat-box {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+}
+
+/* Balon Pesan (Message Bubbles) */
+.message {
+  max-width: 88%;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.message-content {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+/* Pesan Pengguna (Kanan, Warna Biru) */
+.message.user {
+  align-self: flex-end;
+  background-color: #2563eb;
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+/* Pesan Bot Gemini (Kiri, Warna Abu-abu) */
+.message.bot {
+  align-self: flex-start;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 2px;
+}
+
+/* Dekorasi Teks (Bold, Italic, Code, List) */
+.message strong, 
+.message b {
+  font-weight: 700;
+}
+
+.message.bot strong,
+.message.bot b {
+  color: #0f172a; /* Warna tebal lebih pekat untuk bot */
+}
+
+.message.user strong,
+.message.user b {
+  color: #ffffff;
+}
+
+.message em, 
+.message i {
+  font-style: italic;
+}
+
+.message code {
+  font-family: Consolas, 'Courier New', monospace;
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.message.user code {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.message pre {
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.message pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.message ul, 
+.message ol {
+  margin: 6px 0 6px 20px;
+}
+
+.message li {
+  margin-bottom: 4px;
+}
+
+.message p {
+  margin-bottom: 6px;
+}
+
+.message p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lampiran Media dalam Balon Chat */
+.message img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.message audio {
+  width: 100%;
+  max-width: 260px;
+  height: 38px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.message-file-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  word-break: break-all;
+}
+
+.message.user .message-file-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Preview Lampiran File Sebelum Dikirim */
+.file-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 15px;
+  background-color: #f3f4f6;
+  border-top: 1px solid #e5e7eb;
+}
+
+.preview-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.file-preview img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.preview-icon {
+  font-size: 1.4rem;
+}
+
+.preview-filename {
+  font-size: 0.85rem;
+  color: #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+
+#cancelFileBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Form Input Chat */
+.chat-form {
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 15px;
+  border-top: 1px solid #e5e7eb;
+  gap: 10px;
+  background-color: #ffffff;
+}
+
+.upload-btn {
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 6px 4px;
+  margin-bottom: 4px;
+}
+
+.chat-form textarea {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: none;
+  min-height: 42px;
+  max-height: 140px;
+  line-height: 1.45;
+  box-sizing: border-box;
+}
+
+.chat-form textarea:focus {
+  border-color: #2563eb;
+}
+
+.chat-form button[type="submit"] {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  height: 42px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 2px;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.chat-form button[type="submit"]:hover {
+  background-color: #1d4ed8;
+}
+
+.chat-form button[type="submit"]:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Career Buddy - Konsultan Karir IT</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Markdown parser untuk bold, list, dan kode -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <div class="chat-container">
+    <!-- Header Chatbot -->
+    <header class="chat-header">
+      <div class="header-info">
+        <h2>🚀 Tech Career Buddy</h2>
+        <p>Konsultan & Teman Diskusi Rencana Karir IT Kamu</p>
+      </div>
+      <button id="clearBtn" class="clear-btn">Reset Chat</button>
+    </header>
+
+    <!-- Area Obrolan (Pesan Muncul di Sini) -->
+    <div id="chatBox" class="chat-box">
+      <div class="message bot">
+        <p>Halo! Kenalin, aku <strong>Career Buddy IT</strong> kamu 🤝. <br><br>Kamu bisa tanya roadmap belajar, tips interview, atau lampirkan <strong>📄 PDF (CV kamu)</strong>, <strong>🖼️ Gambar (Portofolio/Sertifikat)</strong>, dan <strong>🎵 Audio (Latihan Interview)</strong> untuk kita diskusikan bareng!</p>
+      </div>
+    </div>
+
+    <!-- Preview Lampiran File (Gambar, PDF, Audio) Sebelum Dikirim -->
+    <div id="filePreview" class="file-preview" style="display: none;">
+      <div class="preview-content">
+        <img id="previewImg" src="" alt="Preview" style="display: none;">
+        <span id="previewIcon" class="preview-icon" style="display: none;">📄</span>
+        <span id="fileName" class="preview-filename">nama_file.pdf</span>
+      </div>
+      <button type="button" id="cancelFileBtn" title="Hapus lampiran">✕</button>
+    </div>
+
+    <!-- Form Input Pesan -->
+    <form id="chatForm" class="chat-form">
+      <label for="fileInput" class="upload-btn" title="Lampirkan Gambar, PDF (CV), atau Audio">📎</label>
+      <input 
+        type="file" 
+        id="fileInput" 
+        accept="image/*,application/pdf,audio/*" 
+        style="display: none;"
+      >
+
+      <textarea 
+        id="messageInput" 
+        placeholder="Tanya roadmap, review CV (PDF), atau ketik pesan (Shift+Enter untuk baris baru)..." 
+        rows="1"
+      ></textarea>
+
+      <button type="submit" id="sendBtn">Kirim</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
