@@ -7,11 +7,67 @@
 }
 
 body {
-  background-color: #f0f2f5;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* Background gradient dinamis */
+  background: linear-gradient(-45deg, #090d16, #111827, #1e1b4b, #0f233a);
+  background-size: 300% 300%;
+  animation: gradientFlow 14s ease infinite;
+  overflow: hidden;
+  padding: 15px;
+  position: relative;
+}
+
+/* Lingkaran Cahaya Halus Melayang (Ambient Glowing Orbs) */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
+
+body::before {
+  background: #2563eb;
+  top: -100px;
+  left: -100px;
+}
+
+body::after {
+  background: #7c3aed;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -6s;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(50px, 40px) scale(1.15);
+  }
+}
+
+/* Animasi Pergerakan Warna Gradient */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Kotak Utama Chat */
@@ -20,11 +76,14 @@ body {
   max-width: 760px;
   height: 92vh;
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4), 0 0 30px rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 /* Header */
