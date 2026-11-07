@@ -8,11 +8,18 @@ const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const publicDir = path.join(__dirname, 'public');
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // Menyajikan folder public (HTML, CSS, JS)
+app.use(express.static(publicDir)); // Menyajikan folder public (HTML, CSS, JS)
+
+// Pastikan halaman utama tetap ditemukan ketika working directory runtime
+// berbeda, seperti pada Vercel Functions.
+app.get('/', (req, res) => {
+  res.sendFile(path.join(publicDir, 'index.html'));
+});
 
 // Konfigurasi Multer untuk menangani upload Gambar, PDF, dan Audio (disimpan di RAM)
 const upload = multer({
