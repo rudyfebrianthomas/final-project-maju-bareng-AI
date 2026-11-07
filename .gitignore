@@ -4,6 +4,7 @@ node_modules/
 # Environment variables
 .env
 .env.local
+.vercel
 
 # Logs
 logs
@@ -13,4 +14,3 @@ npm-debug.log*
 # OS Files
 .DS_Store
 Thumbs.db
-

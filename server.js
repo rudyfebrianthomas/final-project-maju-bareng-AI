@@ -92,7 +92,12 @@ app.post('/api/chat', upload.fields([{ name: 'file', maxCount: 1 }, { name: 'ima
   }
 });
 
-// Jalankan Server
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
-});
+// Jalankan server hanya saat dipakai secara lokal. Di Vercel, Express diekspor
+// sebagai serverless function dan Vercel yang menangani request serta port-nya.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server berjalan di http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
