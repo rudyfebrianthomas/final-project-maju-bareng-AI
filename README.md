@@ -1,77 +1,107 @@
-# 🚀 Tech Career Buddy - Konsultan Karir IT AI
+# Tech Career Buddy
 
-Aplikasi chatbot asisten dan konsultan karir IT berbasis **Google Gemini AI**. Dirancang seperti teman diskusi yang santai, suportif, dan sopan untuk membantu merencanakan jenjang karir di dunia teknologi, menyusun roadmap belajar, serta me-review CV dan portofolio.
+**Tech Career Buddy** is a multimodal IT career consultant chatbot powered by Google Gemini. It pairs a static browser chat interface (`public/`) with an Express.js backend (`server.js` and `src/`) that forwards text and file uploads to the `@google/genai` SDK using a configurable persona in `SYSTEM_PROMPT.md`.
 
----
+## Features
 
-## ✨ Fitur Utama
+- **IT-Focused Consultation & Guardrails**: Reads system instructions from `SYSTEM_PROMPT.md` (with a built-in fallback) to answer questions on IT career roadmaps, coding, technical interviews, portfolios, and tech CVs while politely declining off-topic requests.
+- **Multimodal File Uploads**: Accepts `image/*`, `application/pdf`, and `audio/*` attachments up to **20 MB** in memory via `POST /api/chat` (`multipart/form-data` fields `file` or `image`), applying sensible default review prompts when no text message is provided.
+- **Interactive Chat Interface**:
+  - Live attachment preview for images, PDF badges, and audio labels with cancel support before sending.
+  - Auto-resizing message input (`Enter` to send, `Shift+Enter` for a new line) and a `Reset Chat` button.
+  - Markdown formatting via `marked.js` (with a regex fallback for bold, italic, inline code, and line breaks).
+- **Local & Vercel-Ready Entrypoint**: Serves static assets from `public/`, handles `GET /` explicitly, and exports the Express `app` while only binding `app.listen(PORT)` when run directly.
 
-- 🎯 **Konsultasi & Roadmap Karir IT**: Membantu menyusun langkah belajar terarah untuk berbagai bidang (Web Dev, Backend, Data Science, DevOps, Cyber Security, dll).
-- 🛡️ **Fokus Khusus Dunia IT**: Hanya menjawab topik seputar teknologi, coding, dan karir IT. Pertanyaan di luar topik (seperti resep masakan, politik, atau percintaan) akan ditolak dengan ramah dan diarahkan kembali ke topik IT.
-- 📁 **Dukungan Multimodal (Upload File)**:
-  - 📄 **PDF**: Review CV / resume agar ramah ATS dan menarik bagi HR IT.
-  - 🎵 **Audio**: Umpan balik simulasi latihan wawancara (*mock interview*) atau curhat karir.
-  - 🖼️ **Gambar**: Review tangkapan layar portofolio, sertifikat, atau desain sistem.
-- ✍️ **Format Teks Rapi**: Mendukung teks tebal (**bold**), miring (*italic*), poin-poin bertingkat (*list*), dan blok kode pemrograman (*code*).
-- 📜 **System Prompt Dinamis**: Aturan persona AI tersimpan di file `SYSTEM_PROMPT.md` sehingga mudah diubah tanpa mengubah logika kode.
+## Tech Stack
 
----
+| Category | Technology | Version | Role |
+| :--- | :--- | :--- | :--- |
+| Runtime | Node.js | — | Server runtime (CommonJS) |
+| Web Framework | Express | `^5.3.0` | HTTP server, static hosting, and `/api/chat` routing |
+| AI SDK | `@google/genai` | `^2.28.0` | Calls Gemini models (`generateContent`) |
+| File Upload | `multer` | `^2.4.0` | In-memory `multipart/form-data` handling (`20 MB` limit) |
+| Configuration & CORS | `dotenv`, `cors` | `^18.0.7`, `^2.8.6` | Environment loading and cross-origin middleware |
+| Frontend | HTML5, CSS3, Vanilla JS (ESM) | — | Chat UI, file preview, and API client (`public/`) |
+| Markdown Rendering | `marked` (CDN) | — | Parses Markdown responses in the browser |
 
-## 🛠️ Teknologi & Dependensi
+## Getting Started
 
-- **Backend**: Node.js & Express
-- **AI SDK**: `@google/genai` (Google Gen AI SDK terbaru)
-- **File Upload**: `multer` (penanganan file Gambar, PDF, dan Audio ke memori buffer)
-- **Konfigurasi & Keamanan**: `dotenv` & `cors`
-- **Frontend**: HTML5, CSS3, JavaScript murni (Vanilla JS), dan library ringan `marked.js`
+### Prerequisites
 
----
+- Node.js installed locally
+- A Google Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
 
-## 📁 Struktur Folder
+### Installation & Setup
 
-```
-final-project-maju-bareng-AI/
-├── public/
-│   ├── index.html        # Halaman antarmuka chat
-│   ├── style.css         # Desain tampilan & balon percakapan
-│   └── script.js         # Logika chat, upload file, & render markdown
-├── .env                  # Konfigurasi API Key & Port
-├── .env.example          # Contoh template file environment
-├── .gitignore            # Daftar file yang diabaikan Git
-├── package.json          # Daftar dependensi & script runner
-├── server.js             # Server Express, Multer, & integrasi Gemini AI
-├── SYSTEM_PROMPT.md      # Instruksi aturan & kepribadian AI
-└── README.md             # Dokumentasi proyek
-```
+1. Install dependencies:
 
----
-
-## 🚀 Cara Menjalankan Proyek
-
-### 1. Dapatkan Gemini API Key
-Dapatkan API Key gratis di [Google AI Studio](https://aistudio.google.com/app/apikey).
-
-### 2. Atur File `.env`
-Buka file `.env` di direktori proyek dan masukkan API Key Anda:
-```env
-PORT=3000
-GEMINI_API_KEY=masukkan_api_key_anda_di_sini
-GEMINI_MODEL=gemini-2.5-flash
-```
-
-### 3. Install Dependensi (jika baru pertama kali)
 ```bash
 npm install
 ```
 
-### 4. Jalankan Server
+2. Create a `.env` file based on `.env.example` and configure your environment variables:
+
+```env
+PORT=3000
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+| Variable | Description | Default |
+| :--- | :--- | :--- |
+| `PORT` | Port used when running `server.js` locally | `3000` |
+| `GEMINI_API_KEY` | Google Gemini API key (required) | — |
+| `GEMINI_MODEL` | Gemini model identifier passed to `@google/genai` | `gemini-2.5-flash` |
+
+### Scripts
+
+Run any of the scripts defined in `package.json`:
+
 ```bash
 npm start
 ```
-> Atau gunakan `npm run dev` untuk mode development (otomatis reload saat file diedit).
 
-### 5. Buka di Browser
-Buka browser dan kunjungi:
+Starts the server with `nodemon server.js`.
+
+```bash
+npm run dev
 ```
-http://localhost:3000
+
+Starts `nodemon --watch server.js` for development reloads on `server.js` changes.
+
+Then open `http://localhost:3000` in your browser.
+
+## Project Structure
+
+```text
+final-project-maju-bareng-AI/
+├── public/
+│   ├── js/
+│   │   ├── components/
+│   │   │   ├── chatMessages.js   # Message rendering, scrolling, and chat reset
+│   │   │   └── filePreview.js    # Image/PDF/audio attachment preview controller
+│   │   ├── constants/
+│   │   │   └── chat.js           # UI copy, limits, and API endpoint constants
+│   │   ├── services/
+│   │   │   └── chatApi.js        # Multipart POST client for /api/chat
+│   │   ├── utils/
+│   │   │   └── markdown.js       # marked.js setup and regex fallback formatter
+│   │   └── main.js               # Frontend entrypoint and DOM event wiring
+│   ├── index.html                # Chat UI markup
+│   └── style.css                 # Layout, animations, and chat bubble styles
+├── src/
+│   ├── constants/
+│   │   └── chat.js               # Upload limits, default model, prompts, and errors
+│   ├── middleware/
+│   │   └── upload.js             # Multer memory storage and MIME type filter
+│   ├── routes/
+│   │   └── chat.js               # POST /api/chat Express router
+│   └── services/
+│       └── gemini.js             # System prompt loader and Gemini API integration
+├── .env.example                  # Sample environment configuration
+├── .gitignore                    # Git ignore rules
+├── package.json                  # Project manifest and npm scripts
+├── server.js                     # Express application entrypoint
+├── SYSTEM_PROMPT.md              # AI persona, guardrails, and formatting rules
+└── UI.pdf                        # Reference screenshots of the chat interface
 ```
